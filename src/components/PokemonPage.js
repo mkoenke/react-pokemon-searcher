@@ -16,6 +16,28 @@ class PokemonPage extends React.Component {
   }
   submitHandler = (obj) => {
     console.log(obj)
+    const data = {
+      name: obj.name,
+      hp: obj.hp,
+      sprites: { front: obj.front, back: obj.back },
+    }
+    console.log(data)
+    fetch(`http://localhost:3000/pokemon`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((returnedPokemon) => {
+        let newArray = [...this.state.pokemonArray, returnedPokemon]
+        this.setState({ pokemonArray: newArray })
+        console.log("Success new pokemon:", returnedPokemon)
+      })
+      .catch((error) => {
+        console.error("Error:", error)
+      })
   }
 
   changeHandler = (e) => {

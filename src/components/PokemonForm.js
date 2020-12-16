@@ -2,22 +2,16 @@ import React from "react"
 import { Form } from "semantic-ui-react"
 
 class PokemonForm extends React.Component {
-  state = { name: "", hp: "", sprites: { front: "", back: "" } }
+  state = { name: "", hp: "", front: "", back: "" }
 
   localChangeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value })
-    this.setState({
-      sprites: {
-        ...this.state.sprites,
-        front: e.target.value,
-        back: e.target.value,
-      },
-    })
   }
 
   getObj = (e) => {
     e.preventDefault()
     this.props.submitHandler(this.state)
+    this.setState({ name: "", hp: "", front: "", back: "" })
   }
   render() {
     return (
@@ -45,16 +39,16 @@ class PokemonForm extends React.Component {
               fluid
               label="Front Image URL"
               placeholder="url"
-              name="sprites.front"
-              value={this.state.sprites.front}
+              name="front"
+              value={this.state.front}
               onChange={this.localChangeHandler}
             />
             <Form.Input
               fluid
               label="Back Image URL"
               placeholder="url"
-              name="sprites.back"
-              value={this.state.sprites.back}
+              name="back"
+              value={this.state.back}
               onChange={this.localChangeHandler}
             />
           </Form.Group>
